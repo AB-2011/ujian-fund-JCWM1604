@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>PATTERN</h1>
+    <input type="number" placeholder="Masukkan Angka" id="input">
+    <br><br>
+    <button onclick="clickGanjil()">GANJIL</button>&nbsp;<button id="buttonhuruf">HURUF</button>
+    <br><br>
+    <div id="hasil">
+
+    </div>
+</body>
+<script>
+    const ganjil=(input)=>{
+        var star=''
+        if(input<0 && input>=4){
+            for(var i=0;i<input;i++){
+                for(var j=0;j<i;j++){
+                    if(j%2!=0){
+
+                        star+=j
+                    }else{
+                        break
+                    }
+                }
+                star+='<br>'
+            }
+        }
+        return star
+    }
+
+    function huruf(input){
+        var huruf='abcdefghijklmnopqrstuvwxyz'.split('')
+        
+
+
+    }
+
+    const clickGanjil=()=>{
+        let result
+        let input=document.getElementById('input').value
+        result=ganjil(input)
+        document.getElementById('hasil').innerHTML=result
+    }
+</script>
+</html>

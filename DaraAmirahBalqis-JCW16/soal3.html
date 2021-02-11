@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form User</title>
+    <style>
+        table,tr,td{
+            border-collapse:collapse;
+            border: 1px solid black;
+            padding: 5px;
+            
+
+        }
+    </style>
+</head>
+<body>
+    <h1>FORM USERS</h1>
+    <input type="text" placeholder="username" id=username>
+    <input type="text" placeholder="email" id="=email">
+    <select id="role">
+        
+    </select>
+    <br><br>
+    <button onclick="addData()">ADD USER</button>
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <td>No</td>
+                <td>Username</td>
+                <td>Email</td>
+                <td>Role</td>
+                <td>Action</td>
+                
+            </tr>
+        </thead>
+        <tbody id="renderData"></tbody>
+    </table>
+</body>
+<script>
+    var indexdel=-1
+    var indexedit=-1
+    var arrUser=[
+        {username:'alee',email:'alee@gmail.com',role:'admin'},
+        {username:'jennie',email:'jenniebp@gmail.com',role:'user'},
+        {username:'elsa',email:'elsa@disney.com',role:'user'}
+    ]
+
+    var arrRole=['user','admin']
+
+    class User{
+        constructor(_username,_email,_role){
+            this.username=_username
+            this.email=_email
+            this.role=_role
+        }
+    }
+
+    // var user=[]
+
+    const printData=()=>{
+        var result=arrUser.map((val,index)=>{
+            if(indexedit==index){
+                return `<tr>
+                        <td>${index+1}</td>
+                        <td><input type="text" value="${val.username}" placeholder="username" id="editUsername(${index})"</td>
+                        <td><input type="text" value="${val.email}" placeholder="email" id="editEmail(${index})"</td>                
+                        <td>
+                            <select id="">
+                                ${printeditRole(val.role)}
+                            </select>
+                        </td>
+                        <td>
+                            <input type="button" value="EDIT" onclick="onEdit(${index})">
+                            <input type="button" value="DELETE" onclick="onDelete(${index})">
+                         </td>
+                    </tr>`
+            
+
+            }
+            return `<tr>
+                        <td>${index+1}</td>
+                        <td>${val.username}</td>
+                        <td>${val.email}</td>
+                        <td>${val.role}</td>
+                        <td>
+                            <input type="button" value="EDIT" onclick="onEdit(${index})">
+                            <input type="button" value="DELETE" onclick="onDelete(${index})">
+                         </td>
+                    </tr>`
+        })
+        document.getElementById('renderData').innerHTML=result.join('')
+    }
+
+    function printRole(){
+        var result=arrRole.map((val,index)=>{
+            return `<option value="${index}">${val}</option>`
+        })
+        document.getElementById('role').innerHTML=result.join('')
+    }
+
+    function addData(){
+        var username=document.getElementById('username').value
+        var email=document.getElementById('email').value
+        var role=document.getElementById('role').value
+        if(username && email && role){
+            var user={username:username,email:email,role:arrRole[role]}
+            arrUser.push(user)
+            printData()
+        }else{
+            alert('Input tidak boleh kosong')
+        }
+
+    }
+    
+    printData()
+    printRole()
+
+    const onDelete=(index)=>{
+        arrUser.splice(index,1)
+        printData()
+    }
+
+    const onEdit=(index)=>{
+        indexedit=index
+        printData()
+    }
+
+    const printeditRole=()=>{
+        var result=``
+
+        for(let i=0;i<arrRole.length;i++){
+            if(arrRole[i] == role){
+                result+=`<option selected value=${i}>${arrRole[i]}</option>`
+            }else{
+                result+=`<option value=${i}>${arrRole[i]}</option>`
+
+            }
+        } 
+        return result
+    }
+
+
+</script>
+</html>
